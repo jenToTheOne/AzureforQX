@@ -89,32 +89,6 @@ resource "azurerm_firewall_policy_rule_collection_group" "app_policy_rule_collec
   }
 }
 
-resource "azurerm_firewall_policy_rule_collection_group" "app_policy_rule_collection_group_uksouth" {
-  name               = "DefaulApplicationtRuleCollectionGroup"
-  firewall_policy_id = azurerm_firewall_policy.azfw_policy_uksouth.id
-  priority           = 300
-  application_rule_collection {
-    name     = "DefaultApplicationRuleCollection"
-    action   = "Allow"
-    priority = 100
-    rule {
-      name        = "Allow-MSFT"
-      description = "Allow access to Microsoft.com"
-      protocols {
-        type = "Https"
-        port = 443
-      }
-      protocols {
-        type = "Http"
-        port = 80
-      }
-      destination_fqdns = ["*.microsoft.com"]
-      terminate_tls     = false
-      source_addresses  = ["*"]
-    }
-  }
-}
-
 resource "random_password" "password" {
   length      = 20
   min_lower   = 1

@@ -8,7 +8,7 @@ resource "azurerm_virtual_network" "spoke_vnet_1" {
 resource "azurerm_subnet" "workload_subnet_1" {
   name                 = "subnet-workload-1"
   resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.spoke_vnet.name
+  virtual_network_name = azurerm_virtual_network.spoke_vnet_1.name
   address_prefixes     = var.workload_subnet_1_address_space
 }
 
@@ -38,6 +38,6 @@ resource "azurerm_network_interface_security_group_association" "workload_nsg_as
 resource "azurerm_virtual_hub_connection" "azfw_vwan_hub_connection" {
   name                      = "hub-to-spoke"
   virtual_hub_id            = azurerm_virtual_hub.azfw_vwan_hub_westus.id
-  remote_virtual_network_id = azurerm_virtual_network.spoke_vnet.id
+  remote_virtual_network_id = azurerm_virtual_network.spoke_vnet_1.id
   internet_security_enabled = true
 }
